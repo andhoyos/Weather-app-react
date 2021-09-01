@@ -1,6 +1,5 @@
+import React from "react";
 import { useState } from "react";
-
-import "./App.css";
 
 const api = {
   key: "f2c5e04d6f84797bbebcc655413efb0b",
@@ -32,7 +31,7 @@ function App() {
   return (
     <div
       className={
-        typeof weather.main != "undefined"
+        typeof weather.main !== "undefined"
           ? weather.main.temp < 16
             ? "app warn"
             : "app"
@@ -50,7 +49,7 @@ function App() {
             onKeyPress={search}
           />
         </div>
-        {typeof weather.main != "undefined" ? (
+        {typeof weather.main !== "undefined" ? (
           <div>
             <div className="location-box">
               <div className="location">
@@ -60,7 +59,7 @@ function App() {
             </div>
             <div className="weather-box">
               <div className="temp">{Math.round(weather.main.temp)}°c</div>
-              <div>
+              <div className="minMax">
                 Min {Math.trunc(weather.main.temp_min)}°c Max.{" "}
                 {Math.trunc(weather.main.temp_max)}°c
               </div>
