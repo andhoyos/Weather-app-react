@@ -9,24 +9,26 @@ body {
 }
 
 .app {
-  background-image: url(./assets/img1.png);
+  background-image: url(./assets/img2.jpg);
   background-size: cover;
   background-position: bottom;
   transition: 0.4 case;
   text-align: center;
 }
+.imgWeather {
+  width: 4rem;
+}
 
-.app.warn {
-  background-image: url(./assets/img2.jpg);
+.app.wcold {
+  background-image: url(./assets/clouds.jpg);
+}
+
+.app.wheat {
+  background-image: url(./assets/sunny.jpg);
 }
 
 main {
   min-height: 100vh;
-  background-image: linear-gradient(
-    to botton,
-    rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.75)
-  );
   padding: 25px;
 }
 
@@ -60,12 +62,16 @@ main {
   background-color: rgba(255, 255, 255, 0.75);
 }
 
-.location-box .location {
+.location-box .location,
+.weather {
   color: #fff;
-  font-size: 32px;
-  font-weight: 500;
+  font-size: 35px;
+  font-weight: 700;
   text-align: center;
   text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
+}
+.location-box .date {
+  color: #fff;
 }
 
 .weather-box {
@@ -89,18 +95,18 @@ main {
   box-shadow: 3px 6px rgba(0, 0, 0, 0.2);
 }
 
-.weather-box .weather {
-  color: #fff;
-  font-size: 48px;
-  font-weight: 700;
-  text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
-}
-
 .weather-box .minMax,
 .location-box .date {
   font-size: 20px;
   font-weight: 500;
   font-style: italic;
   text-align: center;
-  text-shadow: 3px 3px rgba(50, 50, 70, 30%);
+  text-shadow: 2px 2px rgba(50, 50, 70, 30%);
+}
+
+@media only screen and (min-width: 768px) {
+  .search-box .search-bar {
+    display: inline-block;
+    width: 50%;
+  }
 }
