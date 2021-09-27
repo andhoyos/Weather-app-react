@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import CardInfo from "./components/CardInfo";
 
@@ -13,23 +12,53 @@ function App() {
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
 
-  const search = (e) => {
+  const searchData = (url) => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((result) => {
+        setWeather(result);
+        setQuery("");
+        console.log(weather);
+      });
+  };
+
+  const search = () => {
+    let urlQuery = `${api.base}weather?q=${query}&lang=sp&units=metric&APPID=${api.key}`;
+    searchData(urlQuery);
+  };
+
+  const searchEnter = (e) => {
     if (e.key === "Enter") {
-      fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
-        .then((res) => res.json())
-        .then((result) => {
-          setWeather(result);
-          setQuery("");
-          console.log(weather);
-        });
+      return search();
     }
   };
+
+  const geolocation = () => {
+    let latitud;
+    let longitud;
+    navigator.geolocation.getCurrentPosition((data) => {
+      latitud = data.coords.latitude;
+      longitud = data.coords.longitude;
+      let latUrl = `&lat=${latitud}`;
+      let longUrl = `&lon=${longitud}`;
+      let urlGeo = `${api.base}weather?q=${latUrl}${longUrl}&lang=sp&units=metric&APPID=${api.key}`;
+      console.log(data);
+      searchData(urlGeo);
+    });
+  };
+
   const dateBuilder = () => {
     const dateNow = Date.now();
     const today = new Date(dateNow);
 
     return today.toDateString();
   };
+
+  useEffect(() => {
+    let prueba = setTimeout(geolocation, 1000);
+
+    return () => clearTimeout(prueba);
+  }, []);
 
   return (
     <div
@@ -50,9 +79,10 @@ function App() {
             placeholder="Search..."
             onChange={(e) => setQuery(e.target.value)}
             value={query}
-            onKeyPress={search}
+            onKeyPress={searchEnter}
           />
         </div>
+
         {typeof weather.main !== "undefined" ? (
           <CardInfo weather={weather} date={dateBuilder} />
         ) : (

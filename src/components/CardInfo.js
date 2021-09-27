@@ -9,22 +9,17 @@ function CardInfo({ weather, date }) {
         </div>
         <div className="date">{date(new Date())}</div>
       </div>
-      <div className="weather">
-        {weather.weather[0].main}
-        <img
-          className="imgWeather"
-          src={
-            weather.weather[0].main === "Clouds"
-              ? "https://cdn-icons-png.flaticon.com/512/5118/5118948.png"
-              : weather.weather[0].main === "Clear"
-              ? "https://cdn-icons-png.flaticon.com/512/1891/1891534.png"
-              : "https://cdn-icons-png.flaticon.com/512/2349/2349423.png"
-          }
-          alt=""
-        />
-      </div>
+
       <div className="weather-box">
         <div className="temp">
+          <div className="weather">
+            {weather.weather[0].description}
+            <img
+              className="imgWeather"
+              src={`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`}
+              alt=""
+            />
+          </div>
           {Math.round(weather.main.temp)}°c
           <div className="minMax">
             Min {Math.trunc(weather.main.temp_min)}°c - Max.{""}
