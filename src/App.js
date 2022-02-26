@@ -58,6 +58,7 @@ function App() {
     let prueba = setTimeout(geolocation, 1000);
 
     return () => clearTimeout(prueba);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
